@@ -22,12 +22,12 @@ def response(flow: http.HTTPFlow):
     # 修改响应数据
     try:
         path_data = read_config("mimt_config.json")
-        for key, value in path_data:
+        for key in path_data:
             if key in flow.request.path:
                 print(f"修改响应数据: {flow.request.path}")
                 flow.response = http.Response.make(
                     200,
-                    json.dumps(value),
+                    json.dumps(path_data[key]),
                     {"Content-Type": "application/json"}
                 )
                 return
